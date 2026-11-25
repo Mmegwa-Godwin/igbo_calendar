@@ -44,6 +44,9 @@
     <button onclick="showPage('culture')">🌿 &nbsp; Traditions & Culture</button>
     <button onclick="showPage('festivals')">🎉 &nbsp; Festivals & Communities</button>
       <button type="button" onclick="showPage('communities')">🏘️ &nbsp; Community Directory</button>
+      <button type="button" onclick="showPage('names')">👶 &nbsp; Igbo Names</button>
+      <button type="button" onclick="showPage('proverbs')">💬 &nbsp; Proverbs (Ilu)</button>
+      <button type="button" onclick="showPage('history')">📜 &nbsp; History & Heroes</button>
   </section>
 
   <section id="converter" class="card hidden">
@@ -80,6 +83,25 @@
     <p>Eke, Orie, Afọ and Nkwọ form the familiar four-day market cycle in many Igbo communities.</p>
     <p>Traditions can vary between communities. We will document Owerri's customs carefully as the app grows.</p>
   </section>
+
+  <section id="names" class="card hidden">
+    <h2>👶 Igbo Names & Meanings</h2>
+    <input type="search" id="name-search" placeholder="Search name e.g Adaeze...">
+    <div id="name-list" class="festival-list"></div>
+  </section>
+
+  <section id="proverbs" class="card hidden">
+    <h2>💬 Ilu - Igbo Proverbs</h2>
+    <p id="proverb-of-day" style="font-weight:bold"></p>
+    <button onclick="showRandomProverb()">Another Proverb ↻</button>
+    <div id="proverb-list" class="festival-list"></div>
+  </section>
+
+  <section id="history" class="card hidden">
+    <h2>📜 History & Heroes</h2>
+    <div id="history-list" class="festival-list"></div>
+  </section>
+
 </main>
 
 <nav class="bottom-nav">
@@ -110,6 +132,9 @@
 </section>
 
 <script src="js/data/communities.js"></script>
+<script src="js/data/names.js"></script>
+<script src="js/data/proverbs.js"></script>
+<script src="js/data/history.js"></script>
 <script src="js/app.js"></script>
 
 <script>

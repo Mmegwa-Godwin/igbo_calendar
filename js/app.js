@@ -1,5 +1,5 @@
 function showPage(page) {
-  document.querySelectorAll('#converter, #culture, #festivals, #communities')
+  document.querySelectorAll('#converter, #culture, #festivals, #communities, #names, #proverbs, #history')
     .forEach(section => section.classList.add('hidden'));
 
   const target = document.getElementById(page);
@@ -284,7 +284,7 @@ function renderFestivals(searchTerm = '') {
 }
 
 function showHome() {
-  document.querySelectorAll('#converter, #culture, #festivals, #communities')
+  document.querySelectorAll('#converter, #culture, #festivals, #communities, #names, #proverbs, #history')
     .forEach(section => section.classList.add('hidden'));
 
   const profile = document.getElementById('community-profile');
@@ -464,3 +464,43 @@ function appendFestivalDetails(container, festivals) {
     container.appendChild(status);
   });
 }
+
+// --- NEW: Names, Proverbs, History ---
+function renderNames(filter=""){
+  const el = document.getElementById('name-list');
+  if(!el) return;
+  const list = (typeof IGBO_NAMES !== 'undefined' ? IGBO_NAMES : []).filter(n =>
+    n.name.toLowerCase().includes(filter.toLowerCase()) ||
+    n.meaning.toLowerCase().includes(filter.toLowerCase())
+  );
+  el.innerHTML = list.map(n => `<div class="festival-item"><h3>${n.name} <small>(${n.gender})</small></h3><p>${n.meaning}</p></div>`).join('') || '<p>No name found.</p>';
+}
+
+function renderProverbs(){
+  const listEl = document.getElementById('proverb-list');
+  if(listEl && typeof IGBO_PROVERBS !== 'undefined'){
+    listEl.innerHTML = IGBO_PROVERBS.map(p => `<div class="festival-item"><h3>"${p.igbo}"</h3><p>${p.english}</p></div>`).join('');
+  }
+  showRandomProverb();
+}
+
+function showRandomProverb(){
+  const el = document.getElementById('proverb-of-day');
+  if(!el || typeof IGBO_PROVERBS === 'undefined') return;
+  const p = IGBO_PROVERBS[Math.floor(Math.random()*IGBO_PROVERBS.length)];
+  el.innerHTML = `Proverb of the day:<br>"${p.igbo}"<br><span style="font-weight:normal">${p.english}</span>`;
+}
+
+function renderHistory(){
+  const el = document.getElementById('history-list');
+  if(!el || typeof IGBO_HISTORY === 'undefined') return;
+  el.innerHTML = IGBO_HISTORY.map(h => `<div class="festival-item"><h3>${h.name} <small>${h.years}</small></h3><p><b>${h.role}</b></p><p>${h.desc}</p></div>`).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderNames();
+  renderProverbs();
+  renderHistory();
+  const s = document.getElementById('name-search');
+  if(s) s.addEventListener('input', e => renderNames(e.target.value));
+});
